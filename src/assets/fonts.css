@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'ReemKufiSemibold';
+    src: url('./fonts/ReemKufi-SemiBold.eot');
+    src: url('./fonts/ReemKufi-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ReemKufi-SemiBold.woff2') format('woff2'),
+        url('./fonts/ReemKufi-SemiBold.woff') format('woff'),
+        url('./fonts/ReemKufi-SemiBold.ttf') format('truetype'),
+        url('./fonts/ReemKufi-SemiBold.svg#ReemKufi-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ReemKufiMedium';
+    src: url('./fonts/ReemKufi-Medium.eot');
+    src: url('./fonts/ReemKufi-Medium.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ReemKufi-Medium.woff2') format('woff2'),
+        url('./fonts/ReemKufi-Medium.woff') format('woff'),
+        url('./fonts/ReemKufi-Medium.ttf') format('truetype'),
+        url('./fonts/ReemKufi-Medium.svg#ReemKufi-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ReemKufiRegular';
+    src: url('./fonts/ReemKufi-Regular.eot');
+    src: url('./fonts/ReemKufi-Regular.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ReemKufi-Regular.woff2') format('woff2'),
+        url('./fonts/ReemKufi-Regular.woff') format('woff'),
+        url('./fonts/ReemKufi-Regular.ttf') format('truetype'),
+        url('./fonts/ReemKufi-Regular.svg#ReemKufi-Regular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ReemKufi';
+    src: url('./fonts/ReemKufi.eot');
+    src: url('./fonts/ReemKufi.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ReemKufi.woff2') format('woff2'),
+        url('./fonts/ReemKufi.woff') format('woff'),
+        url('./fonts/ReemKufi.ttf') format('truetype'),
+        url('./fonts/ReemKufi.svg#ReemKufi') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ReemKufiBold';
+    src: url('./fonts/ReemKufi-Bold.eot');
+    src: url('./fonts/ReemKufi-Bold.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/ReemKufi-Bold.woff2') format('woff2'),
+        url('./fonts/ReemKufi-Bold.woff') format('woff'),
+        url('./fonts/ReemKufi-Bold.ttf') format('truetype'),
+        url('./fonts/ReemKufi-Bold.svg#ReemKufi-Bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
