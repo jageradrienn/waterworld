@@ -8,8 +8,7 @@ import SizeBrown from '../icons/SizeBrown.vue'
 import Svg from '../Svg.vue'
 import { defineProps } from 'vue';
 
-
-const props = defineProps({
+defineProps({
     status: String,
     statusLabel: String,
     label: String,
