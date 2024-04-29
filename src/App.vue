@@ -82,11 +82,25 @@ const vestsByStatus = computed(() => {
           <div class="gridBox h-full w-[97%] pt-20 pl-7 pr-[60px] grid grid-cols-4 gap-x-5 gap-y-16 "
             :class="vestsByStatus.length ? 'overflow-y-auto' : null">
             <template v-for="item in vestsByStatus" :key="item.id">
-              <MellenyCard :mstatus="item.statusLabel" :mlabel="item.label" :msize="item.size" :order="item.order"
-                :time="item.time" :warning="item.warning" :isClosed="item.isClosed" />
-              <MellenyCard v-if="item.status === 'reserved' && activeFilter === 'closed'" :mstatus="item.statusLabel"
-                :mlabel="item.label" :msize="item.size" :order="item.order" :time="item.time" :warning="item.warning"
-                :isClosed="item.isClosed" />
+              <MellenyCard
+                :mstatus="item.statusLabel"
+                :mlabel="item.label"
+                :msize="item.size"
+                :order="item.order"
+                :time="item.time"
+                :warning="item.warning"
+                :isClosed="item.isClosed"
+              />
+              <MellenyCard
+                v-if="item.status === 'reserved' && activeFilter === 'closed'"
+                :mstatus="item.statusLabel"
+                :mlabel="item.label"
+                :msize="item.size"
+                :order="item.order"
+                :time="item.time"
+                :warning="item.warning"
+                :isClosed="item.isClosed"
+              />
             </template>
           </div>
         </div>
