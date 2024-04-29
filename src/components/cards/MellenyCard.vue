@@ -27,13 +27,13 @@ const props = defineProps({
         <MellenyBg v-if="status !== 'wrong'" />
         <MellenyWrongBg v-if="status === 'wrong'" class="w-[258px] h-[258px] mt-2" />
         <div class="absolute " :class="status !== 'wrong' ? 'top-1 left-1.5' : 'top-2 left-0'">
-            <Size v-if="status !== 'wrong'" class="relative" />
-            <SizeBrown v-if="status === 'wrong'" class="relative " />
+            <SizeBrown v-if="status === 'wrong'" class="relative" />
+            <Size v-else class="relative" />
             <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-lg text-white">{{ size }}</p>
         </div>
         <div class="absolute top-1 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Melleny class="w-[96px] h-[96px]" v-if="status !== 'wrong'" />
-            <MellenyWrong class="w-[96px] h-[96px]" v-if="status === 'wrong'" />
+            <MellenyWrong v-if="status === 'wrong'" class="w-[96px] h-[96px]" />
+            <Melleny v-else class="w-[96px] h-[96px]" />
         </div>
         <div class="absolute top-[70px] left-1/2 -translate-x-1/2  h-full flex flex-col items-center gap-4">
 
