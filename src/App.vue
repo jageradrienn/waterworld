@@ -83,25 +83,11 @@ const vestsByStatus = computed(() => {
             :class="vestsByStatus.length ? 'overflow-y-auto' : null">
             <template v-for="item in vestsByStatus" :key="item.id">
               <MellenyCard
-                :status="item.status"
-                :statusLabel="item.statusLabel"
-                :label="item.label"
-                :size="item.size"
-                :order="item.order"
-                :time="item.time"
-                :warning="item.warning"
-                :isClosed="item.isClosed"
+                v-bind="item"
               />
               <MellenyCard
                 v-if="item.status === 'reserved' && activeFilter === 'closed'"
-                :status="item.status"
-                :statusLabel="item.statusLabel"
-                :label="item.label"
-                :size="item.size"
-                :order="item.order"
-                :time="item.time"
-                :warning="item.warning"
-                :isClosed="item.isClosed"
+                v-bind="item"
               />
             </template>
           </div>
