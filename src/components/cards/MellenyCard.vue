@@ -8,7 +8,7 @@ import SizeBrown from '../icons/SizeBrown.vue'
 import Svg from '../Svg.vue'
 import { defineProps } from 'vue';
 
-defineProps({
+const props = defineProps({
     status: String,
     statusLabel: String,
     label: String,
@@ -18,6 +18,21 @@ defineProps({
     warning: Boolean,
     isClosed: Boolean,
 })
+
+const loadStatusDot = () => {
+    let components = {
+        free: '../components/icons/BlueDot.vue',
+        reserved: '../components/icons/OrangeDot.vue',
+        expired: '../components/icons/RedDot.vue',
+        wrong: '',
+    }
+
+    if (props.status === 'reserved' && props.isClosed) {
+        return components['expired']
+    }
+
+    return components[props.status]
+}
 
 </script>
 
@@ -37,12 +52,13 @@ defineProps({
         <div class="absolute top-[70px] left-1/2 -translate-x-1/2  h-full flex flex-col items-center gap-4">
 
             <div class="flex justify-center items-center gap-2">
-                <Svg :src="status === 'free' ? '../components/icons/BlueDot.vue'
-                    : status === 'reserved' ? '../components/icons/OrangeDot.vue'
-                        : (status === 'reserved') && isClosed ? '../components/icons/RedDot.vue' : status === 'wrong' ? '' : null"
-                    class="w-[16px] h-[16px]" />
+                <Svg
+                    :src="loadStatusDot()"
+                    class="w-[16px] h-[16px]"
+                />
                 <p class="text-2xl" :class="status === 'wrong' ? 'opacity-50' : null">
-                    {{ statusLabel }}</p>
+                    {{ statusLabel }}
+                </p>
             </div>
             <p :class="[order === 'VIP' ? 'text-[84px] leading-[95%]' : order != '' ? 'text-4xl leading-[50%]' : 'text-[125px] leading-[70%] -tracking-[1.25px]',
             status === 'wrong' ? 'opacity-50' : null]">
