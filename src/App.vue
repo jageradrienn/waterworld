@@ -9,31 +9,29 @@ import NoClosedCard from './components/cards/NoClosedCard.vue';
 import Homokora from './components/icons/Homokora.vue';
 import ClosedCard from './components/cards/ClosedCard.vue';
 import Svg from './components/Svg.vue';
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import {vests} from "../data/vests.json"
 import {menuItems} from "../data/menu_items.json"
+import {filter} from "lodash";
 
-const Btnstatus = ref();
+const activeFilter = ref('all');
 
-const toggleIsPushed = async (id) => {
-  for (const item of menuItems) {
-    if (item.id === id && !item.isPushed) {
-      item.isPushed = !item.isPushed;
-      Btnstatus.value = item.Btnstatus;
-      await filterItems(item.Btnstatus);
+const toggleItemFilter = (item) => {
+    if (activeFilter.value === item.status) {
+        activeFilter.value = 'all'
+        return
     }
-    else if (item.id === id && item.isPushed) {
-      item.isPushed = true;
-    }
-    else {
-      item.isPushed = false;
-    }
-  }
-};
 
-const filterItems = async (filter) => {
+    activeFilter.value = item.status
+}
 
-};
+const vestsByStatus = computed(() => {
+    if (activeFilter.value === 'all') {
+        return vests
+    }
+
+    return filter(vests, {'status': activeFilter.value})
+});
 </script>
 
 <template>
@@ -43,10 +41,16 @@ const filterItems = async (filter) => {
         <Logo class="ml-8" />
         <nav>
           <ul class="w-[608px] flex items-center gap-x-8">
-            <li v-for="item in menuItems" :key="item.id" class="relative cursor-pointer"
-              @click="toggleIsPushed(item.id)">
-              <PushedCircleBtn v-if="item.isPushed" :label="item.label" />
-              <NormalCircleBtn v-else :label="item.label" :border="item.border" />
+            <li v-for="item in menuItems" :key="item.id" class="relative cursor-pointer" @click="toggleItemFilter(item)">
+              <PushedCircleBtn
+                  v-if="item.status === activeFilter"
+                  :label="item.label"
+              />
+              <NormalCircleBtn
+                  v-else
+                  :label="item.label"
+                  :border="item.border"
+              />
             </li>
           </ul>
         </nav>
@@ -71,17 +75,17 @@ const filterItems = async (filter) => {
       <article class="flex flex-col gap-8">
         <div class="flex justify-between items-center">
           <p class="text-4xl ml-8">Mellények</p>
-          <p class="text-4xl mr-8"><span>{{ vests.length }}</span>/<span>{{ vests.length }} </span> Elérhető
+          <p class="text-4xl mr-8"><span>{{ vestsByStatus.length }}</span>/<span>{{ vestsByStatus.length }} </span> Elérhető
           </p>
         </div>
         <div class="left-blur-card flex justify-between items-center ">
           <div class="gridBox h-full w-[97%] pt-20 pl-7 pr-[60px] grid grid-cols-4 gap-x-5 gap-y-16 "
-            :class="vests.length ? 'overflow-y-auto' : null">
-            <template v-for="item in vests" :key="item.id">
-              <MellenyCard :mstatus="item.mstatusLabel" :mlabel="item.mlabel" :msize="item.msize" :order="item.order"
+            :class="vestsByStatus.length ? 'overflow-y-auto' : null">
+            <template v-for="item in vestsByStatus" :key="item.id">
+              <MellenyCard :mstatus="item.statusLabel" :mlabel="item.label" :msize="item.size" :order="item.order"
                 :time="item.time" :warning="item.warning" :isClosed="item.isClosed" />
-              <MellenyCard v-if="item.mstatus === 'reserved' && Btnstatus === 'closed'" :mstatus="item.mstatusLabel"
-                :mlabel="item.mlabel" :msize="item.msize" :order="item.order" :time="item.time" :warning="item.warning"
+              <MellenyCard v-if="item.status === 'reserved' && activeFilter === 'closed'" :mstatus="item.statusLabel"
+                :mlabel="item.label" :msize="item.size" :order="item.order" :time="item.time" :warning="item.warning"
                 :isClosed="item.isClosed" />
             </template>
           </div>
@@ -95,7 +99,7 @@ const filterItems = async (filter) => {
         </div>
         <div class="flex flex-col items-center justify-center gap-6">
           <template v-for="item in vests" :key="item.id">
-            <ClosedCard v-if="item.isClosed" :mlabel="item.mlabel" />
+            <ClosedCard v-if="item.isClosed" :mlabel="item.label" />
           </template>
         </div>
 
