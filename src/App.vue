@@ -9,15 +9,14 @@ import NoClosedCard from './components/cards/NoClosedCard.vue';
 import Homokora from './components/icons/Homokora.vue';
 import ClosedCard from './components/cards/ClosedCard.vue';
 import Svg from './components/Svg.vue';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+import {vests} from "../data/vests.json"
+import {menuItems} from "../data/menu_items.json"
 
 const Btnstatus = ref();
-const MenuItems = ref([]);
-const MellenyDetails = ref([]);
-const fullData = ref();
 
 const toggleIsPushed = async (id) => {
-  for (const item of MenuItems.value) {
+  for (const item of menuItems) {
     if (item.id === id && !item.isPushed) {
       item.isPushed = !item.isPushed;
       Btnstatus.value = item.Btnstatus;
@@ -33,33 +32,8 @@ const toggleIsPushed = async (id) => {
 };
 
 const filterItems = async (filter) => {
-  try {
-    let url = 'http://localhost:4000/MellenyDetails';
-    if (filter !== 'all') {
-      url += `?mstatus=${filter}`;
-    }
-    const response = await fetch(url);
-    const data = await response.json();
-    MellenyDetails.value = data;
-  } catch (error) {
-    console.error('Hiba történt az adatok szűrése közben:', error);
-  }
+
 };
-
-
-
-onMounted(async () => {
-  try {
-    const menuResponse = await fetch('http://localhost:3000/MenuItems');
-    const mellenyResponse = await fetch('http://localhost:4000/MellenyDetails');
-    MenuItems.value = await menuResponse.json();
-    MellenyDetails.value = await mellenyResponse.json();
-    fullData.value = MellenyDetails.value.length;
-  } catch (error) {
-    console.error('Hiba történt az adatok lekérése közben:', error);
-  }
-});
-
 </script>
 
 <template>
@@ -69,7 +43,7 @@ onMounted(async () => {
         <Logo class="ml-8" />
         <nav>
           <ul class="w-[608px] flex items-center gap-x-8">
-            <li v-for="item in MenuItems" :key="item.id" class="relative cursor-pointer"
+            <li v-for="item in menuItems" :key="item.id" class="relative cursor-pointer"
               @click="toggleIsPushed(item.id)">
               <PushedCircleBtn v-if="item.isPushed" :label="item.label" />
               <NormalCircleBtn v-else :label="item.label" :border="item.border" />
@@ -97,13 +71,13 @@ onMounted(async () => {
       <article class="flex flex-col gap-8">
         <div class="flex justify-between items-center">
           <p class="text-4xl ml-8">Mellények</p>
-          <p class="text-4xl mr-8"><span>{{ fullData }}</span>/<span>{{ MellenyDetails.length }} </span> Elérhető
+          <p class="text-4xl mr-8"><span>{{ vests.length }}</span>/<span>{{ vests.length }} </span> Elérhető
           </p>
         </div>
         <div class="left-blur-card flex justify-between items-center ">
           <div class="gridBox h-full w-[97%] pt-20 pl-7 pr-[60px] grid grid-cols-4 gap-x-5 gap-y-16 "
-            :class="MellenyDetails.length ? 'overflow-y-auto' : null">
-            <template v-for="item in MellenyDetails" :key="item.id">
+            :class="vests.length ? 'overflow-y-auto' : null">
+            <template v-for="item in vests" :key="item.id">
               <MellenyCard :mstatus="item.mstatusLabel" :mlabel="item.mlabel" :msize="item.msize" :order="item.order"
                 :time="item.time" :warning="item.warning" :isClosed="item.isClosed" />
               <MellenyCard v-if="item.mstatus === 'reserved' && Btnstatus === 'closed'" :mstatus="item.mstatusLabel"
@@ -120,7 +94,7 @@ onMounted(async () => {
           <NoClosedCard />
         </div>
         <div class="flex flex-col items-center justify-center gap-6">
-          <template v-for="item in MellenyDetails" :key="item.id">
+          <template v-for="item in vests" :key="item.id">
             <ClosedCard v-if="item.isClosed" :mlabel="item.mlabel" />
           </template>
         </div>
